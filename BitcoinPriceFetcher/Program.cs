@@ -1,3 +1,4 @@
+using BitcoinPriceFetcher.Common;
 using BitcoinPriceFetcher.Data;
 using BitcoinPriceFetcher.Data.Repositories;
 using BitcoinPriceFetcher.Data.Repositories.Interfaces;
@@ -24,10 +25,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 app.UseAuthorization();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.MapControllers();
 
 app.Run();
