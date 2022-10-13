@@ -10,24 +10,21 @@ namespace BitcoinPriceFetcher.Controllers
     [Route("api/[controller]")]
     public class BitcoinPriceController : ControllerBase
     {
-        private readonly IBitcoinPriceRepository _bitcoinPricesRepository;
         private readonly IBitcoinPriceServices _btcPriceServices;
         private readonly ILogger<BitcoinPriceController> _logger;
         
         public BitcoinPriceController(
-            IBitcoinPriceRepository sourcesRepository,
             IBitcoinPriceServices btcPriceServices,
             ILogger<BitcoinPriceController> logger)
         {
-            _bitcoinPricesRepository = sourcesRepository;
             _btcPriceServices = btcPriceServices;
             _logger = logger;
         }
 
         [HttpGet]
-        public ActionResult<List<BitcoinPriceDto>> Get(CancellationToken cancellationToken)
-        {
-            return Ok(_bitcoinPricesRepository.GetBitcoinPrices(cancellationToken));
+        public async Task<ActionResult<List<BitcoinPriceDto>>> Get(CancellationToken cancellationToken)
+        {            
+            return Ok(await _btcPriceServices.GetBitcoinPricesFromDb(cancellationToken));
         }
 
         [HttpPost]
