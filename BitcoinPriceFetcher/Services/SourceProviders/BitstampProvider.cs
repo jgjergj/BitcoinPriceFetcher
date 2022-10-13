@@ -28,8 +28,6 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
 
         public async Task<BitcoinPriceDto> Fetch(string endpoint)
         {
-            try
-            {
                 var resultString = await RequestHandler.GetDataFromProvider(endpoint);
 
                 BitstampBitcoinPrice btcPrice = JsonConvert.DeserializeObject<BitstampBitcoinPrice>(resultString);
@@ -38,12 +36,6 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
                 //_mapper.Map<BitcoinPrice>(btcPrice);
 
                 return _mapper.Map<BitcoinPriceDto>(btcPrice);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                return null;
-            }
         }
 
         private class BitstampBitcoinPriceMappingProfile : Profile
