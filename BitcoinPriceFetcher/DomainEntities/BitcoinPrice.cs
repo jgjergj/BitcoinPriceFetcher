@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public decimal Price { get; set; }
-        public int TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }
