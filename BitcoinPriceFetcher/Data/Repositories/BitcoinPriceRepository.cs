@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BitcoinPriceFetcher.Data.Repositories.Interfaces;
+﻿using BitcoinPriceFetcher.Data.Repositories.Interfaces;
 using BitcoinPriceFetcher.DomainEntities;
 using Microsoft.EntityFrameworkCore;
 

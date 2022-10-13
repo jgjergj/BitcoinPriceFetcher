@@ -1,6 +1,4 @@
 using BitcoinPriceFetcher.Data.DTOs;
-using BitcoinPriceFetcher.Data.Repositories.Interfaces;
-using BitcoinPriceFetcher.DomainEntities;
 using BitcoinPriceFetcher.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,9 +26,9 @@ namespace BitcoinPriceFetcher.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BitcoinPriceDto>> FetchBtcPriceByProvider(Source request, CancellationToken cancellationToken)
+        public async Task<ActionResult<BitcoinPriceDto>> FetchBtcPriceByProvider(string sourceName, CancellationToken cancellationToken)
         {
-            var btcPrice = await _btcPriceServices.FetchBitcoinPrice(request, cancellationToken);
+            var btcPrice = await _btcPriceServices.FetchBitcoinPrice(sourceName, cancellationToken);
             
             return Ok(btcPrice);
         }

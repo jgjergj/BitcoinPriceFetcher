@@ -12,9 +12,15 @@ namespace BitcoinPriceFetcher.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
+
         public async Task<List<Source>> GetSources(CancellationToken cancellationToken)
         {
-            return await _appDbContext.Sources.ToListAsync(cancellationToken);            
+            return await _appDbContext.Sources.ToListAsync(cancellationToken);
+        }
+
+        public async Task<Source> GeByName(string sourceName, CancellationToken cancellationToken)
+        {
+            return await _appDbContext.Sources.Where(s => s.Name == sourceName).FirstOrDefaultAsync();
         }
     }
 }
