@@ -35,7 +35,7 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             public string ProviderName { get; set; }
         }
 
-        public async Task<BitcoinPriceDto> Fetch(Source source, CancellationToken cancellationToken)
+        public async Task<BitcoinPriceDto> FetchAndSave(Source source, CancellationToken cancellationToken)
         {
             var resultString = await RequestHandler.GetDataFromProvider(source.Endpoint);
 
@@ -43,7 +43,7 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             btcPrice.ProviderName = source.Name;
 
             var entity = _mapper.Map<BitcoinPrice>(btcPrice);
-            await _repository.Create(entity, cancellationToken);
+            var res = await _repository.Create(entity, cancellationToken);
 
             return _mapper.Map<BitcoinPriceDto>(btcPrice);            
         }

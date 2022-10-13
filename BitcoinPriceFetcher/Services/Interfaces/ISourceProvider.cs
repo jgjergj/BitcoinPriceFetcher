@@ -5,6 +5,6 @@ namespace BitcoinPriceFetcher.Services.Interfaces
 {
     public interface ISourceProvider
     {
-        public Task<BitcoinPriceDto> Fetch(Source endpoint, CancellationToken cancellationToken);
+        public Task<BitcoinPriceDto> FetchAndSave(Source endpoint, CancellationToken cancellationToken);
     }
 }

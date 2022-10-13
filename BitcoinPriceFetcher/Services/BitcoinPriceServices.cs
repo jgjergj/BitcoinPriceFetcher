@@ -20,7 +20,7 @@ namespace BitcoinPriceFetcher.Services
 
             var sourceProvider = (ISourceProvider)ActivatorUtilities.CreateInstance(_serviceProvider, sourceProviderType);
 
-            return await sourceProvider.Fetch(source, cancellationToken);
+            return await sourceProvider.FetchAndSave(source, cancellationToken);
         }
     }
 }

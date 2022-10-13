@@ -25,8 +25,19 @@ namespace BitcoinPriceFetcher.Data.Repositories
 
         public async Task<int> Create(BitcoinPrice bitcoinPrice, CancellationToken cancellationToken)
         {
-            _appDbContext.BitcoinPrices.Add(bitcoinPrice);
-            return await _appDbContext.SaveChangesAsync(cancellationToken);
+            var entryExists = _appDbContext
+                .BitcoinPrices
+                .Where(e => e.TimeStamp == bitcoinPrice.TimeStamp && e.ProviderName == bitcoinPrice.ProviderName)
+                .Select(u => u.Id)
+                .FirstOrDefault();
+
+            if (entryExists == 0)
+            {
+                _appDbContext.BitcoinPrices.Add(bitcoinPrice);
+                return await _appDbContext.SaveChangesAsync(cancellationToken);
+            }
+
+            return 0;
         }
     }
 }
