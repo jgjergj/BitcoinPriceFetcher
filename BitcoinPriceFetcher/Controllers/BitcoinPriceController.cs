@@ -1,3 +1,4 @@
+using BitcoinPriceFetcher.Data.DTOs;
 using BitcoinPriceFetcher.Data.Repositories.Interfaces;
 using BitcoinPriceFetcher.DomainEntities;
 using BitcoinPriceFetcher.Services.Interfaces;
@@ -24,13 +25,13 @@ namespace BitcoinPriceFetcher.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<BitcoinPrice>> Get()
+        public ActionResult<List<BitcoinPriceDto>> Get()
         {
             return Ok(_bitcoinPricesRepository.GetBitcoinPrices());
         }
 
         [HttpPost]
-        public async Task<ActionResult<BitcoinPrice>> FetchBtcPriceByProvider(Source request, CancellationToken cancellationToken)
+        public async Task<ActionResult<BitcoinPriceDto>> FetchBtcPriceByProvider(Source request, CancellationToken cancellationToken)
         {
             var btcPrice = await _btcPriceServices.FetchBitcoinPrice(request);
             

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BitcoinPriceFetcher.Data.DTOs;
 using BitcoinPriceFetcher.DomainEntities;
 using BitcoinPriceFetcher.Helpers;
 using BitcoinPriceFetcher.Services.Interfaces;
@@ -25,7 +26,7 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             public DateTime Timestamp => DateTimeHandler.ParseTimestamp(ProviderTimestamp);
         }
 
-        public async Task<BitcoinPrice> Fetch(string endpoint)
+        public async Task<BitcoinPriceDto> Fetch(string endpoint)
         {
             try
             {
@@ -33,7 +34,10 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
 
                 BitstampBitcoinPrice btcPrice = JsonConvert.DeserializeObject<BitstampBitcoinPrice>(resultString);
 
-                return _mapper.Map<BitcoinPrice>(btcPrice);
+                //todo: save to db
+                //_mapper.Map<BitcoinPrice>(btcPrice);
+
+                return _mapper.Map<BitcoinPriceDto>(btcPrice);
             }
             catch (Exception exception)
             {
@@ -47,6 +51,8 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             public BitstampBitcoinPriceMappingProfile()
             {
                 CreateMap<BitstampBitcoinPrice, BitcoinPrice>();
+                CreateMap<BitstampBitcoinPrice, BitcoinPriceDto>()
+                    .ForMember(dto => dto.DisplayPrice, opt => opt.MapFrom(bp => PriceHandler.GetReadableValue(bp.Price)));
             }
         }
     }

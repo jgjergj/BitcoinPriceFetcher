@@ -1,9 +1,9 @@
-﻿using BitcoinPriceFetcher.DomainEntities;
+﻿using BitcoinPriceFetcher.Data.DTOs;
 
 namespace BitcoinPriceFetcher.Services.Interfaces
 {
     public interface ISourceProvider
     {
-        public Task<BitcoinPrice> Fetch(string endpoint);
+        public Task<BitcoinPriceDto> Fetch(string endpoint);
     }
 }
