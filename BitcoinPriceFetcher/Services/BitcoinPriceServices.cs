@@ -35,7 +35,7 @@ namespace BitcoinPriceFetcher.Services
 
         public async Task<List<BitcoinPriceDto>> GetBitcoinPricesFromDb(CancellationToken cancellationToken)
         {
-            var btcPricesList = _bitcoinPriceRepository.GetBitcoinPrices(cancellationToken);
+            var btcPricesList = await _bitcoinPriceRepository.GetBitcoinPrices(cancellationToken);
 
             return _mapper.Map<List<BitcoinPriceDto>>(btcPricesList);
         }
