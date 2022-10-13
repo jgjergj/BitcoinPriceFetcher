@@ -17,9 +17,9 @@ namespace BitcoinPriceFetcher.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Source>> Get()
+        public async Task<ActionResult<List<Source>>> Get(CancellationToken cancellationToken)
         {
-            return Ok(_sourcesRepository.GetSources());
+            return Ok(await _sourcesRepository.GetSources(cancellationToken));
         }
     }
 }

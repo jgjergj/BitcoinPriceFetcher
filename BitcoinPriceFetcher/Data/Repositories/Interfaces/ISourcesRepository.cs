@@ -4,6 +4,6 @@ namespace BitcoinPriceFetcher.Data.Repositories.Interfaces
 {
     public interface ISourcesRepository
     {
-        public List<Source> GetSources();
+        public Task<List<Source>> GetSources(CancellationToken cancellationToken);
     }
 }

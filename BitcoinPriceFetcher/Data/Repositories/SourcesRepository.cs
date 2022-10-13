@@ -1,18 +1,20 @@
 ﻿using BitcoinPriceFetcher.Data.Repositories.Interfaces;
 using BitcoinPriceFetcher.DomainEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BitcoinPriceFetcher.Data.Repositories
 {
     public class SourcesRepository : ISourcesRepository
-    {    
-        public List<Source> GetSources()
+    {
+        private readonly IAppDbContext _appDbContext;
+
+        public SourcesRepository(IAppDbContext appDbContext)
         {
-            using (var context = new AppDbContext())
-            {
-                var list = context.Sources
-                    .ToList();
-                return list;
-            }
+            _appDbContext = appDbContext;
+        }
+        public async Task<List<Source>> GetSources(CancellationToken cancellationToken)
+        {
+            return await _appDbContext.Sources.ToListAsync(cancellationToken);            
         }
     }
 }
