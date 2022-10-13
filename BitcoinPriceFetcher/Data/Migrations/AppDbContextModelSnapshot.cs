@@ -61,6 +61,20 @@ namespace BitcoinPriceFetcher.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sources");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Endpoint = "https://www.bitstamp.net/api/v2/ticker/btcusd/",
+                            Name = "Bitstamp"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Endpoint = "https://api.bitfinex.com/v1/pubticker/btcusd",
+                            Name = "Bitfinex"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -39,6 +39,16 @@ namespace BitcoinPriceFetcher.Data.Migrations
                     table.PrimaryKey("PK_Sources", x => x.Id);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Sources",
+                columns: new[] { "Id", "DocumentationLink", "Endpoint", "Name" },
+                values: new object[] { 1, null, "https://www.bitstamp.net/api/v2/ticker/btcusd/", "Bitstamp" });
+
+            migrationBuilder.InsertData(
+                table: "Sources",
+                columns: new[] { "Id", "DocumentationLink", "Endpoint", "Name" },
+                values: new object[] { 2, null, "https://api.bitfinex.com/v1/pubticker/btcusd", "Bitfinex" });
+
             migrationBuilder.CreateIndex(
                 name: "IDX_TimeAndProvider",
                 table: "BitcoinPrices",

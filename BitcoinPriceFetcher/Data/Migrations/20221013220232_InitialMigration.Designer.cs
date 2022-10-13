@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BitcoinPriceFetcher.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221013212724_InitialMigration")]
+    [Migration("20221013220232_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,20 @@ namespace BitcoinPriceFetcher.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sources");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Endpoint = "https://www.bitstamp.net/api/v2/ticker/btcusd/",
+                            Name = "Bitstamp"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Endpoint = "https://api.bitfinex.com/v1/pubticker/btcusd",
+                            Name = "Bitfinex"
+                        });
                 });
 #pragma warning restore 612, 618
         }

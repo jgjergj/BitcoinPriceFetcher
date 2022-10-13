@@ -20,6 +20,8 @@ namespace BitcoinPriceFetcher.Data
         {
             modelBuilder.Entity<BitcoinPrice>()
                 .HasIndex(entity => new { entity.TimeStamp, entity.ProviderName }, "IDX_TimeAndProvider").IsUnique();
+
+            new DbInitializer(modelBuilder).Seed();
         }
 
         public DbSet<BitcoinPrice> BitcoinPrices { get; set; }
