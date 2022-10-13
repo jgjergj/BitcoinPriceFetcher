@@ -7,5 +7,6 @@ namespace BitcoinPriceFetcher.Data
     {
         DbSet<BitcoinPrice> BitcoinPrices { get; set; }
         DbSet<Source> Sources { get; set; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

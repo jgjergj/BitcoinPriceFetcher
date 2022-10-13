@@ -1,9 +1,10 @@
 ﻿using BitcoinPriceFetcher.Data.DTOs;
+using BitcoinPriceFetcher.DomainEntities;
 
 namespace BitcoinPriceFetcher.Services.Interfaces
 {
     public interface ISourceProvider
     {
-        public Task<BitcoinPriceDto> Fetch(string endpoint);
+        public Task<BitcoinPriceDto> Fetch(Source endpoint, CancellationToken cancellationToken);
     }
 }

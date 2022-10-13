@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BitcoinPriceFetcher.Data.DTOs;
+using BitcoinPriceFetcher.Data.Repositories.Interfaces;
 using BitcoinPriceFetcher.DomainEntities;
 using BitcoinPriceFetcher.Helpers;
 using BitcoinPriceFetcher.Services.Interfaces;
@@ -10,9 +11,15 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
     public class BitstampProvider : ISourceProvider
     {
         private readonly IMapper _mapper;
-        public BitstampProvider(IMapper mapper)
+        private readonly IBitcoinPriceRepository _repository;
+        
+        public BitstampProvider(
+            IMapper mapper,
+            IBitcoinPriceRepository bitcoinPriceRepository
+            )
         {
             _mapper = mapper;
+            _repository = bitcoinPriceRepository;
         }
 
         private class BitstampBitcoinPrice
@@ -24,18 +31,21 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             public string ProviderTimestamp { get; set; }
             
             public DateTime Timestamp => DateTimeHandler.ParseTimestamp(ProviderTimestamp);
+
+            public string ProviderName { get; set; }
         }
 
-        public async Task<BitcoinPriceDto> Fetch(string endpoint)
+        public async Task<BitcoinPriceDto> Fetch(Source source, CancellationToken cancellationToken)
         {
-                var resultString = await RequestHandler.GetDataFromProvider(endpoint);
+            var resultString = await RequestHandler.GetDataFromProvider(source.Endpoint);
 
-                BitstampBitcoinPrice btcPrice = JsonConvert.DeserializeObject<BitstampBitcoinPrice>(resultString);
+            BitstampBitcoinPrice btcPrice = JsonConvert.DeserializeObject<BitstampBitcoinPrice>(resultString);
+            btcPrice.ProviderName = source.Name;
 
-                //todo: save to db
-                //_mapper.Map<BitcoinPrice>(btcPrice);
+            var entity = _mapper.Map<BitcoinPrice>(btcPrice);
+            await _repository.Create(entity, cancellationToken);
 
-                return _mapper.Map<BitcoinPriceDto>(btcPrice);
+            return _mapper.Map<BitcoinPriceDto>(btcPrice);            
         }
 
         private class BitstampBitcoinPriceMappingProfile : Profile

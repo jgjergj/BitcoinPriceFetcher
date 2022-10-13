@@ -25,15 +25,15 @@ namespace BitcoinPriceFetcher.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<BitcoinPriceDto>> Get()
+        public ActionResult<List<BitcoinPriceDto>> Get(CancellationToken cancellationToken)
         {
-            return Ok(_bitcoinPricesRepository.GetBitcoinPrices());
+            return Ok(_bitcoinPricesRepository.GetBitcoinPrices(cancellationToken));
         }
 
         [HttpPost]
         public async Task<ActionResult<BitcoinPriceDto>> FetchBtcPriceByProvider(Source request, CancellationToken cancellationToken)
         {
-            var btcPrice = await _btcPriceServices.FetchBitcoinPrice(request);
+            var btcPrice = await _btcPriceServices.FetchBitcoinPrice(request, cancellationToken);
             
             return Ok(btcPrice);
         }

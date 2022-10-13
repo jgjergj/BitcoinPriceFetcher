@@ -13,14 +13,14 @@ namespace BitcoinPriceFetcher.Services
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<BitcoinPriceDto> FetchBitcoinPrice(Source source)
+        public async Task<BitcoinPriceDto> FetchBitcoinPrice(Source source, CancellationToken cancellationToken)
         {
             //todo: add validations
             Type sourceProviderType = Type.GetType("BitcoinPriceFetcher.Services.SourceProviders." + source.Name + "Provider");
 
             var sourceProvider = (ISourceProvider)ActivatorUtilities.CreateInstance(_serviceProvider, sourceProviderType);
 
-            return await sourceProvider.Fetch(source.Endpoint);
+            return await sourceProvider.Fetch(source, cancellationToken);
         }
     }
 }
