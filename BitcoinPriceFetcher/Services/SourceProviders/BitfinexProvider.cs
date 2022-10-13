@@ -41,6 +41,7 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
             var resultString = await RequestHandler.GetDataFromProvider(source.Endpoint);
 
             BitfinexBitcoinPrice btcPrice = JsonConvert.DeserializeObject<BitfinexBitcoinPrice>(resultString);
+            btcPrice.ProviderName = source.Name;
 
             var entity = _mapper.Map<BitcoinPrice>(btcPrice);
             await _repository.Create(entity, cancellationToken);
