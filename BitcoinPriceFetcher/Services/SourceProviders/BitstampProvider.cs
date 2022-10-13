@@ -18,9 +18,11 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
         {
             [JsonProperty(PropertyName = "last")]
             public decimal Price { get; set; }
+            
             [JsonProperty(PropertyName = "timestamp")]
             public string ProviderTimestamp { get; set; }
-            public DateTime Timestamp => ParseTimestamp(ProviderTimestamp);
+            
+            public DateTime Timestamp => DateTimeHandler.ParseTimestamp(ProviderTimestamp);
         }
 
         public async Task<BitcoinPrice> Fetch(string endpoint)
@@ -38,17 +40,6 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
                 Console.WriteLine(exception);
                 return null;
             }
-        }
-
-        private static DateTime ParseTimestamp(string timestamp)
-        {
-            long ticks = 0;
-            long.TryParse(timestamp, out ticks);
-
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(ticks);
-            DateTime dateTime = dateTimeOffset.DateTime;
-
-            return dateTime;
         }
 
         private class BitstampBitcoinPriceMappingProfile : Profile

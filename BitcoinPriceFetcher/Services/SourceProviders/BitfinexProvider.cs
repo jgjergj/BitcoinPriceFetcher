@@ -16,14 +16,13 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
 
         private class BitfinexBitcoinPrice
         {
-            private long number;
-
             [JsonProperty(PropertyName = "last_price")]
             public decimal Price { get; set; }
             
             [JsonProperty(PropertyName = "timestamp")]
             public string ProviderTimestamp { get; set; }
-            public DateTime Timestamp => ParseTimestamp(ProviderTimestamp);
+            
+            public DateTime Timestamp => DateTimeHandler.ParseTimestamp(ProviderTimestamp.Split(".")[0]);
         }
         
         public async Task<BitcoinPrice> Fetch(string endpoint)
@@ -41,17 +40,6 @@ namespace BitcoinPriceFetcher.Services.SourceProviders
                 Console.WriteLine(exception);
                 return null;
             }
-        }
-
-        private static DateTime ParseTimestamp(string timestamp)
-        {
-            long ticks = 0;
-            long.TryParse(timestamp.Split(".")[0], out ticks);
-
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(ticks);
-            DateTime dateTime = dateTimeOffset.DateTime;
-
-            return dateTime;
         }
 
         private class BitfinexBitcoinPriceMappingProfile : Profile
