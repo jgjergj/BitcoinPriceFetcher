@@ -1,5 +1,6 @@
 using BitcoinPriceFetcher.Data.Repositories.Interfaces;
 using BitcoinPriceFetcher.DomainEntities;
+using BitcoinPriceFetcher.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BitcoinPriceFetcher.Controllers
@@ -9,10 +10,16 @@ namespace BitcoinPriceFetcher.Controllers
     public class BitcoinPriceController : ControllerBase
     {
         private readonly IBitcoinPriceRepository _bitcoinPricesRepository;
+        private readonly IBitcoinPriceServices _btcPriceServices;
         private readonly ILogger<BitcoinPriceController> _logger;
-        public BitcoinPriceController(IBitcoinPriceRepository sourcesRepository, ILogger<BitcoinPriceController> logger)
+        
+        public BitcoinPriceController(
+            IBitcoinPriceRepository sourcesRepository,
+            IBitcoinPriceServices btcPriceServices,
+            ILogger<BitcoinPriceController> logger)
         {
             _bitcoinPricesRepository = sourcesRepository;
+            _btcPriceServices = btcPriceServices;
             _logger = logger;
         }
 
@@ -20,6 +27,14 @@ namespace BitcoinPriceFetcher.Controllers
         public ActionResult<List<BitcoinPrice>> Get()
         {
             return Ok(_bitcoinPricesRepository.GetBitcoinPrices());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<BitcoinPrice>> FetchBtcPriceByProvider(Source request, CancellationToken cancellationToken)
+        {
+            var btcPrice = await _btcPriceServices.FetchBitcoinPrice(request);
+            
+            return Ok(btcPrice);
         }
     }
 }
