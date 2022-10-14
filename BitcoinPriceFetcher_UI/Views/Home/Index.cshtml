@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Source>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-5 mb-xxl-5">Bitcoin Price Fetcher</h1>
+
+    <div class="row">
+        <div class="col-sm">
+            <h3 class="display-12 mb-5">Available Sources</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th>@Html.DisplayNameFor(model => model.Endpoint)</th>
+                        <th>@Html.DisplayNameFor(model => model.DocumentationLink)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var source in @Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => source.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => source.Endpoint)</td>
+                            <td><a href="@source.DocumentationLink" target="_blank">Documentation Link</a> </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm">
+            <h3 class="display-12 mb-5">Fetch From Source</h3>
+            <div class="form-group">
+                <label class="control-label">Source</label>
+                <form asp-controller="home" asp-action="FetchPrice" method="post">
+                    <select name="sourceName" class="form-control chosen-select mb-2">
+                        <option disabled selected>-- Select Source --</option>
+                        @foreach (var source in @Model)
+                        {
+                            <option value=@source.Name>@source.Name</option>
+                        }
+                    </select>
+                    <input type="submit" class="btn btn-primary" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
