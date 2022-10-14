@@ -1,5 +1,5 @@
-using BitcoinPriceFetcher.Data.Repositories.Interfaces;
-using BitcoinPriceFetcher.DomainEntities;
+using BitcoinPriceFetcher.Data.DTOs;
+using BitcoinPriceFetcher.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BitcoinPriceFetcher.Controllers
@@ -8,18 +8,18 @@ namespace BitcoinPriceFetcher.Controllers
     [Route("api/[controller]")]
     public class SourcesController : ControllerBase
     {
-        private readonly ISourcesRepository _sourcesRepository;
+        private readonly ISourceServices _sourceServices;
         private readonly ILogger<SourcesController> _logger;
-        public SourcesController(ISourcesRepository sourcesRepository, ILogger<SourcesController> logger)
+        public SourcesController(ISourceServices sourcesServices, ILogger<SourcesController> logger)
         {
-            _sourcesRepository = sourcesRepository;
+            _sourceServices = sourcesServices;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Source>>> Get(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<SourceDto>>> Get(CancellationToken cancellationToken)
         {
-            return Ok(await _sourcesRepository.GetSources(cancellationToken));
+            return Ok(await _sourceServices.GetSources(cancellationToken));
         }
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddScoped<IBitcoinPriceRepository, BitcoinPriceRepository>();
 builder.Services.AddScoped<ISourcesRepository, SourcesRepository>();
 builder.Services.AddScoped<IBitcoinPriceServices, BitcoinPriceServices>();
+builder.Services.AddScoped<ISourceServices, SourceServices>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
