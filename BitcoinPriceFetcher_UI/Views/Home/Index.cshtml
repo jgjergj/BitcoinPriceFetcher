@@ -35,14 +35,14 @@
             <div class="form-group">
                 <label class="control-label">Source</label>
                 <form asp-controller="home" asp-action="FetchPrice" method="post">
-                    <select name="sourceName" class="form-control chosen-select">
+                    <select name="sourceName" class="form-control chosen-select mb-2">
                         <option disabled selected>-- Select Source --</option>
                         @foreach (var source in @Model)
                         {
                             <option value=@source.Name>@source.Name</option>
                         }
                     </select>
-                    <input type="submit" />
+                    <input type="submit" class="btn btn-primary" />
                 </form>
 
 
