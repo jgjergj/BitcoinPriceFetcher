@@ -1,5 +1,6 @@
 ﻿using BitcoinPriceFetcher_UI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace BitcoinPriceFetcher_UI.Controllers
@@ -13,9 +14,14 @@ namespace BitcoinPriceFetcher_UI.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            using var client = new HttpClient();
+
+            var resultString = await client.GetStringAsync("http://localhost:5164/api/sources");
+            List<Source> sources = JsonConvert.DeserializeObject<List<Source>>(resultString);
+
+            return View(sources);
         }
 
         public IActionResult Privacy()

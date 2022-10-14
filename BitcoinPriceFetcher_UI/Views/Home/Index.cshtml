@@ -1,8 +1,47 @@
-﻿@{
+﻿@model List<Source>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bitcoin Price Fetcher</h1>
+
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Endpoint</th>
+                        <th>DocumentationLink</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var source in @Model)
+                    {
+                        <tr>
+                            <td>@source.Name</td>
+                            <td>@source.Endpoint</td>
+                            <td>@source.DocumentationLink</td>                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm">
+            <div class="form-group">
+                <label class="control-label">Source</label>
+                <select id="ddlsite" class="form-control chosen-select">
+                    <option disabled selected>-- Select Site --</option>
+                    @foreach (var source in @Model)
+                    {
+                        <option value=@source.Name>@source.Name</option>
+                        
+                    }
+                </select>
+            </div>
+           
+        </div>
+    </div>
 </div>
