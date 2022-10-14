@@ -17,7 +17,9 @@ builder.Services.AddScoped<IBitcoinPriceRepository, BitcoinPriceRepository>();
 builder.Services.AddScoped<ISourcesRepository, SourcesRepository>();
 builder.Services.AddScoped<IBitcoinPriceServices, BitcoinPriceServices>();
 builder.Services.AddScoped<ISourceServices, SourceServices>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<ModelValidationAttribute>();
 
 var app = builder.Build();
 
