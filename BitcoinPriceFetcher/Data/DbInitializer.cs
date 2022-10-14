@@ -20,13 +20,15 @@ namespace BitcoinPriceFetcher.Data
                     {
                         Id = 1,
                         Name = "Bitstamp",
-                        Endpoint = "https://www.bitstamp.net/api/v2/ticker/btcusd/"
+                        Endpoint = "https://www.bitstamp.net/api/v2/ticker/btcusd/",
+                        DocumentationLink = "https://www.bitstamp.net/api/#ticker"
                     },
                     new Source
                     {
                         Id = 2,
                         Name = "Bitfinex",
-                        Endpoint = "https://api.bitfinex.com/v1/pubticker/btcusd"
+                        Endpoint = "https://api.bitfinex.com/v1/pubticker/btcusd",
+                        DocumentationLink = "https://docs.bitfinex.com/v1/reference#rest-public-ticker"
                     }
                 );
         }
