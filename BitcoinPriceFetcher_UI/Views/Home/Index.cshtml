@@ -1,19 +1,20 @@
-﻿@model List<Source>
+﻿@model IEnumerable<Source>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bitcoin Price Fetcher</h1>
+    <h1 class="display-5 mb-xxl-5">Bitcoin Price Fetcher</h1>
 
     <div class="row">
         <div class="col-sm">
+            <h3 class="display-12 mb-5">Available Sources</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Endpoint</th>
-                        <th>DocumentationLink</th>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th>@Html.DisplayNameFor(model => model.Endpoint)</th>
+                        <th>@Html.DisplayNameFor(model => model.DocumentationLink)</th>
                     </tr>
                 </thead>
 
@@ -21,27 +22,32 @@
                     @foreach (var source in @Model)
                     {
                         <tr>
-                            <td>@source.Name</td>
-                            <td>@source.Endpoint</td>
-                            <td>@source.DocumentationLink</td>                            
+                            <td>@Html.DisplayFor(modelItem => source.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => source.Endpoint)</td>
+                            <td><a href="@source.DocumentationLink" target="_blank">Documentation Link</a> </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
         <div class="col-sm">
+            <h3 class="display-12 mb-5">Fetch From Source</h3>
             <div class="form-group">
                 <label class="control-label">Source</label>
-                <select id="ddlsite" class="form-control chosen-select">
-                    <option disabled selected>-- Select Site --</option>
-                    @foreach (var source in @Model)
-                    {
-                        <option value=@source.Name>@source.Name</option>
-                        
-                    }
-                </select>
+                <form asp-controller="home" asp-action="FetchPrice" method="post">
+                    <select name="sourceName" class="form-control chosen-select">
+                        <option disabled selected>-- Select Source --</option>
+                        @foreach (var source in @Model)
+                        {
+                            <option value=@source.Name>@source.Name</option>
+                        }
+                    </select>
+                    <input type="submit" />
+                </form>
+
+
             </div>
-           
+
         </div>
     </div>
 </div>
