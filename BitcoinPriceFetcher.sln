@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitcoinPriceFetcher_API", "BitcoinPriceFetcher\BitcoinPriceFetcher_API.csproj", "{1FAD1E8C-FC72-4CAD-A874-55455A5A0E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitcoinPriceFetcher_UI", "BitcoinPriceFetcher_UI\BitcoinPriceFetcher_UI.csproj", "{215BA564-4934-4DAC-A891-B995B3801657}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitcoinPriceFetcher_UI", "BitcoinPriceFetcher_UI\BitcoinPriceFetcher_UI.csproj", "{215BA564-4934-4DAC-A891-B995B3801657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{927BDDCA-C992-480A-A641-6373D36AF275}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{215BA564-4934-4DAC-A891-B995B3801657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215BA564-4934-4DAC-A891-B995B3801657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215BA564-4934-4DAC-A891-B995B3801657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{927BDDCA-C992-480A-A641-6373D36AF275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{927BDDCA-C992-480A-A641-6373D36AF275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{927BDDCA-C992-480A-A641-6373D36AF275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{927BDDCA-C992-480A-A641-6373D36AF275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
